@@ -6,7 +6,6 @@ import { Facebook, Github, Instagram, Linkedin } from "react-bootstrap-icons"
 export default function Footer() {
     return (
         <div className={cn(styles.footBg, styles.textCenter, 'w-100')}>
-            <hr />
                 <Row xs={12} className="w-100 justify-content-center">
                     <Col
                     xs={6}

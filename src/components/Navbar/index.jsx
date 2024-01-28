@@ -6,7 +6,7 @@ import cn from 'classnames'
 export default function MyNavbar() {
   return (
     <Navbar expand="lg" className={cn(styles.navbg)}>
-      <Container>
+      <Container className='px-0'>
         <Navbar.Brand href="#home">🍻 Birrabook 🍻</Navbar.Brand>
       </Container>
     </Navbar>

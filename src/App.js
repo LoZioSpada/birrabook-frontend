@@ -1,9 +1,10 @@
 import { useState } from "react"
 import "./App.scss"
 import { useEffect } from "react"
-import { Container } from "react-bootstrap"
-import Navbar from './components/Navbar/index.jsx'
-import Footer from './components/Footer/index.jsx'
+import Navbar from "./components/Navbar/index.jsx"
+import Footer from "./components/Footer/index.jsx"
+import { Routes, Route } from "react-router-dom"
+import Welcome from "./components/Welcome/index.jsx"
 
 function App() {
     // funzione che cambia il tema chiaro/scuro in base a quello impostato dal dispositivo
@@ -24,9 +25,18 @@ function App() {
     }, [])
     return (
         <div className={isDarkMode ? "dark-mode" : "light-mode"}>
-            <Navbar />
-            <Container></Container>
-            <Footer />
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <Navbar />
+                            <Welcome />
+                            <Footer />
+                        </>
+                    }
+                />
+            </Routes>
         </div>
     )
 }
