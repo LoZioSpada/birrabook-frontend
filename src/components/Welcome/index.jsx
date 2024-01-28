@@ -28,7 +28,6 @@ export default function Welcome() {
                         </Alert>
                     </Col>
 
-
                     <Col md={6}>
                         <Form className="px-5 mt-5 mx-5">
                             <h3>Accedi</h3>
@@ -41,12 +40,6 @@ export default function Welcome() {
                                     type="email"
                                     placeholder="Email"
                                 />
-                                <Form.Text>
-                                    <small>
-                                        We'll never share your email with anyone
-                                        else.
-                                    </small>
-                                </Form.Text>
                             </Form.Group>
 
                             <Form.Group
@@ -59,13 +52,9 @@ export default function Welcome() {
                                     placeholder="Password"
                                 />
                             </Form.Group>
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            >
-                                <Form.Text>
-                                    Non sei ancora registrato? <a href="/">Clicca qui</a>
-                                </Form.Text>
+                            <Form.Group className="mb-3">
+                                Non sei ancora registrato?{" "}
+                                <a href="/">Clicca qui</a>
                             </Form.Group>
                             <Button variant="primary" type="submit">
                                 Accedi
