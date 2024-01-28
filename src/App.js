@@ -2,6 +2,8 @@ import { useState } from "react"
 import "./App.scss"
 import { useEffect } from "react"
 import { Container } from "react-bootstrap"
+import Navbar from './components/Navbar/index.jsx'
+import Footer from './components/Footer/index.jsx'
 
 function App() {
     // funzione che cambia il tema chiaro/scuro in base a quello impostato dal dispositivo
@@ -22,8 +24,9 @@ function App() {
     }, [])
     return (
         <div className={isDarkMode ? "dark-mode" : "light-mode"}>
-            <MyNavbar />
+            <Navbar />
             <Container></Container>
+            <Footer />
         </div>
     )
 }

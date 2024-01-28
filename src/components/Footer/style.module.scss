@@ -1,0 +1,21 @@
+.textCenter {
+    text-align: center;
+}
+
+.footBg {
+    background-color: #cc720c;
+    color: black;
+    font-size: 20px;
+}
+
+.noDecor {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media only screen and (min-width: 768px) {
+    .flexCenter {
+        display: flex;
+        justify-content: center;
+    }
+}
