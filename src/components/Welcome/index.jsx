@@ -2,6 +2,7 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap"
 import Alert from "react-bootstrap/Alert"
 import styles from "./style.module.scss"
 import cn from "classnames"
+import { GoogleLoginButton } from "react-social-login-buttons"
 
 export default function Welcome() {
     return (
@@ -37,6 +38,7 @@ export default function Welcome() {
                             >
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
+                                    className="rounded-5"
                                     type="email"
                                     placeholder="Email"
                                 />
@@ -48,6 +50,7 @@ export default function Welcome() {
                             >
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
+                                    className="rounded-5"
                                     type="password"
                                     placeholder="Password"
                                 />
@@ -56,10 +59,25 @@ export default function Welcome() {
                                 Non sei ancora registrato?{" "}
                                 <a href="/">Clicca qui</a>
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                className="rounded-5"
+                            >
                                 Accedi
                             </Button>
                         </Form>
+
+                        <div className="px-5 mt-5 mx-5">
+                            <GoogleLoginButton
+                                className="rounded-5"
+                                onClick={() => {
+                                    window.location.assign(
+                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/users/oauth-google`
+                                    )
+                                }}
+                            />
+                        </div>
                     </Col>
                 </Row>
             </Container>
