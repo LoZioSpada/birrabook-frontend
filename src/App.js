@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/index.jsx"
 import Footer from "./components/Footer/index.jsx"
 import { Routes, Route } from "react-router-dom"
 import Welcome from "./components/Welcome/index.jsx"
+import Register from "./components/Register/index.jsx"
 
 function App() {
     // funzione che cambia il tema chiaro/scuro in base a quello impostato dal dispositivo
@@ -32,11 +33,20 @@ function App() {
                         <>
                             <Navbar />
                             <Welcome />
-                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/register"
+                    element={
+                        <>
+                            <Navbar />
+                            <Register />
                         </>
                     }
                 />
             </Routes>
+            <Footer />
         </div>
     )
 }
