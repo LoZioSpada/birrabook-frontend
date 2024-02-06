@@ -24,6 +24,7 @@ function App() {
             darkModeQuery.removeEventListener("change", handleThemeChange)
         }
     }, [])
+    
     return (
         <div className={isDarkMode ? "dark-mode" : "light-mode"}>
             <Routes>

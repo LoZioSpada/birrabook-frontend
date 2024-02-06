@@ -3,6 +3,7 @@ import Alert from "react-bootstrap/Alert"
 import styles from "./style.module.scss"
 import cn from "classnames"
 import { GoogleLoginButton } from "react-social-login-buttons"
+import { Link } from "react-router-dom"
 
 export default function Welcome() {
     return (
@@ -30,7 +31,7 @@ export default function Welcome() {
                     </Col>
 
                     <Col md={6}>
-                        <Form className="px-5 mt-5 mx-5">
+                        <Form className="px-5 mt-5 mx-5 mb-5">
                             <h3>Accedi</h3>
                             <Form.Group
                                 className="mb-3"
@@ -57,7 +58,7 @@ export default function Welcome() {
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 Non sei ancora registrato?{" "}
-                                <a href="/">Clicca qui</a>
+                                <Link to={'/register'}>Clicca qui</Link>
                             </Form.Group>
                             <Button
                                 variant="primary"
@@ -68,7 +69,7 @@ export default function Welcome() {
                             </Button>
                         </Form>
 
-                        <div className="px-5 mt-5 mx-5">
+                        <div className="px-5 mt-5 mx-5 mb-5">
                             <GoogleLoginButton
                                 className="rounded-5"
                                 onClick={() => {
