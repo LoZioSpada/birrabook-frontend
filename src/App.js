@@ -8,8 +8,12 @@ import Welcome from "./components/Welcome/index.jsx"
 import Register from "./components/Register/index.jsx"
 import { AuthProvider } from "./context/AuthContext.js"
 import AllTheBeers from "./components/AllTheBeers.jsx"
+import NavbarSearch from "./components/NavbarSearch/index.jsx"
+import SingleBeer from "./components/SingleBeer/index.jsx"
 
 function App() {
+    const [searchQuery, setSearchQuery] = useState("")
+
     // funzione che cambia il tema chiaro/scuro in base a quello impostato dal dispositivo
     const [isDarkMode, setIsDarkMode] = useState(false)
 
@@ -49,15 +53,26 @@ function App() {
                             </>
                         }
                     />
-                    <Route 
+                    <Route
                         path="/main"
                         element={
                             <>
-                                <Navbar />
+                                <NavbarSearch
+                                    searchQuery={searchQuery}
+                                    setSearchQuery={setSearchQuery}
+                                />
                                 <AllTheBeers />
                             </>
                         }
-                    
+                    />
+                    <Route
+                        path="/:id"
+                        element={
+                            <>
+                                <Navbar />
+                                <SingleBeer />
+                            </>
+                        }
                     />
                 </Routes>
                 <Footer />

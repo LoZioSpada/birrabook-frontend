@@ -1,36 +1,37 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
-import { Container, Row, Col } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react"
+import AuthContext from "../context/AuthContext"
+import { Container, Row, Col } from "react-bootstrap"
+import SingleBeer from './SingleBeer'
 
-export default function AllTheBeers ({ searchQuery }) {
+export default function AllTheBeers({ searchQuery }) {
     const { userType, userData } = useContext(AuthContext)
-    const [selected, setSelected] = useState(false)
-    const navigate = useNavigate()
+    const [beers, setBeers] = useState([])
+    const [sortedBeers, setSortedBeers] = useState([])
 
-    return(
-        <>
-            <Container>
-                <Row>
-                    <Col>
-                        {allTheBeers ? (allTheBeers.filter((b) => b.name.toLowerCase().includes(searchQuery)).map((beer) =>(
-                            <SingleBeer 
-                                selected={selected}
-                                setSelected={setSelected}
-                                photo={beer.photo}
-                                name={beer.name}
-                                brewery={beer.brewery}
-                                place={beer.place}
-                                description={beer.description}
-                                asin={beer.asin}
-                            />
-                        )
-                        )) : (
-                            <h1 className="text-center">SCEGLI UNA BIRRA!🍻</h1>
-                        )}
-                    </Col>
-                </Row>
-            </Container>
-        </>
-    )
+
+    useEffect(() => {
+        if (userType === "user" && userData) {
+            fetch("http://localhost:3050/api/beers")
+                .then((response) => response.json())
+                .then((data) => setBeers(data))
+                .catch((error) => console.error("Error fetching beers", error))
+        }
+    }, [userType, userData])
+
+    if (userType === "user") {
+        return (
+            <>
+                <Container>
+                    <Row>
+                        <h1>Cerca la tua birra preferita! 🍻</h1>
+                        <Col xs={12} lg={4} style={{ overflow: "auto" }}>
+                            {sortedBeers.map((beer, i) => (
+                                <SingleBeer beer={beer} key={i} />
+                            ))}
+                        </Col>
+                    </Row>
+                </Container>
+            </>
+        )
+    }
 }
