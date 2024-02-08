@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate()
 
     const login = async (email, password) => {
-        const response = await fetch("http://localhost:3050/session", {
+        const response = await fetch("http://localhost:3050/main", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

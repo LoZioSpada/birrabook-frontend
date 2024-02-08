@@ -93,7 +93,7 @@ export default function Welcome() {
                                 className="rounded-5"
                                 onClick={() => {
                                     window.location.assign(
-                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/users/oauth-google`
+                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/oauth/callback`
                                     )
                                 }}
                             />

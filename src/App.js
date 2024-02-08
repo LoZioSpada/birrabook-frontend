@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom"
 import Welcome from "./components/Welcome/index.jsx"
 import Register from "./components/Register/index.jsx"
 import { AuthProvider } from "./context/AuthContext.js"
+import AllTheBeers from "./components/AllTheBeers.jsx"
 
 function App() {
     // funzione che cambia il tema chiaro/scuro in base a quello impostato dal dispositivo
@@ -47,6 +48,16 @@ function App() {
                                 <Register />
                             </>
                         }
+                    />
+                    <Route 
+                        path="/main"
+                        element={
+                            <>
+                                <Navbar />
+                                <AllTheBeers />
+                            </>
+                        }
+                    
                     />
                 </Routes>
                 <Footer />
