@@ -6,6 +6,7 @@ import Footer from "./components/Footer/index.jsx"
 import { Routes, Route } from "react-router-dom"
 import Welcome from "./components/Welcome/index.jsx"
 import Register from "./components/Register/index.jsx"
+import { AuthProvider } from "./context/AuthContext.js"
 
 function App() {
     // funzione che cambia il tema chiaro/scuro in base a quello impostato dal dispositivo
@@ -24,31 +25,33 @@ function App() {
             darkModeQuery.removeEventListener("change", handleThemeChange)
         }
     }, [])
-    
+
     return (
-        <div className={isDarkMode ? "dark-mode" : "light-mode"}>
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <>
-                            <Navbar />
-                            <Welcome />
-                        </>
-                    }
-                />
-                <Route
-                    path="/register"
-                    element={
-                        <>
-                            <Navbar />
-                            <Register />
-                        </>
-                    }
-                />
-            </Routes>
-            <Footer />
-        </div>
+        <AuthProvider>
+            <div className={isDarkMode ? "dark-mode" : "light-mode"}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <>
+                                <Navbar />
+                                <Welcome />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <>
+                                <Navbar />
+                                <Register />
+                            </>
+                        }
+                    />
+                </Routes>
+                <Footer />
+            </div>
+        </AuthProvider>
     )
 }
 

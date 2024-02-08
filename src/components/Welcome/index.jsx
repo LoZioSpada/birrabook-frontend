@@ -4,8 +4,21 @@ import styles from "./style.module.scss"
 import cn from "classnames"
 import { GoogleLoginButton } from "react-social-login-buttons"
 import { Link } from "react-router-dom"
+import { useContext, useState } from "react"
+import AuthContext from '../../context/AuthContext'
 
 export default function Welcome() {
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const { login } = useContext(AuthContext)
+
+    const handleLogin = async(event) =>{
+        event.preventDefault()
+        await login(email, password)
+    }
+
+
     return (
         <>
             <Container className="px-0 d-flex">
@@ -31,29 +44,35 @@ export default function Welcome() {
                     </Col>
 
                     <Col md={6}>
-                        <Form className="px-5 mt-5 mx-5 mb-5">
+                        <Form onSubmit={handleLogin} className="px-5 mt-5 mx-5 mb-5">
                             <h3>Accedi</h3>
                             <Form.Group
                                 className="mb-3"
-                                controlId="formBasicEmail"
+                                controlId="emailInput"
                             >
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     className="rounded-5"
                                     type="email"
                                     placeholder="Email"
+                                    value={email}
+                                    required
+                                    onChange={(event) => setEmail(event.target.value)}
                                 />
                             </Form.Group>
 
                             <Form.Group
                                 className="mb-3"
-                                controlId="formBasicPassword"
+                                controlId="passwordInput"
                             >
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
                                     className="rounded-5"
                                     type="password"
                                     placeholder="Password"
+                                    name='password'
+                                    required
+                                    onChange={(event) => setPassword(event.target.value)}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3">
