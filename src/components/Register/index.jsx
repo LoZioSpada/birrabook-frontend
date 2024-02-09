@@ -1,7 +1,8 @@
 import { Container, Alert, Button } from "react-bootstrap"
 import Form from "react-bootstrap/Form"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
+
 
 function Register() {
     const navigate = useNavigate("")
@@ -25,14 +26,15 @@ function Register() {
     const checkPassword = (password) => {
         const hasUpperCase = /[A-Z]/.test(password)
         const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
-        const isValid = password.length >= 8 && hasUpperCase && hasSpecialChar
+        const hasNumberChar = /[0-9]/.test(password)
+        const isValid = password.length >= 8 && hasUpperCase && hasSpecialChar && hasNumberChar
         setPasswordValid(isValid)
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
         setLoading(true)
-        const response = await fetch("REACT_APP_BACKEND_ENDPOINT/api/users", {
+        const response = await fetch("http://localhost:3050/api/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -56,6 +58,7 @@ function Register() {
         } else {
             localStorage.setItem("token", data.token)
             navigate("/")
+            alert('Registrazione avvenuta con successo!')
         }
     }
 
@@ -96,11 +99,12 @@ function Register() {
                         </div>
                     </div>
                 ) : (
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-5" controlId="nameInput">
                             <Form.Label>Nome</Form.Label>
                             <Form.Control
-                                type="name"
+                                type="text"
+                                name="name"
                                 required
                                 value={formData.name}
                                 onChange={handleChange}
@@ -111,8 +115,9 @@ function Register() {
                         <Form.Group className="mb-5" controlId="surnameInput">
                             <Form.Label>Cognome</Form.Label>
                             <Form.Control
-                                type="surname"
-                                placeholder="cognome"
+                                type="text"
+                                placeholder="Cognome"
+                                name='surname'
                                 required
                                 value={formData.surname}
                                 onChange={handleChange}
@@ -127,6 +132,7 @@ function Register() {
                             <Form.Label>Data di nascita</Form.Label>
                             <Form.Control
                                 type="date"
+                                name="birth"
                                 required
                                 value={formData.birth}
                                 onChange={handleChange}
@@ -157,10 +163,10 @@ function Register() {
                                 onChange={handleChange}
                             />
                             {!passwordValid && (
-                                <Alert>
+                                <Alert variant="danger">
                                     La password deve essere lunga almeno 8
-                                    caratteri, contenere una lettera maiuscola e
-                                    un carattere speciale!
+                                    caratteri, contenere una lettera maiuscola,
+                                    un numero e un carattere speciale!
                                 </Alert>
                             )}
                         </Form.Group>
