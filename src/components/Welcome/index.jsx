@@ -21,7 +21,7 @@ export default function Welcome() {
 
     return (
         <>
-            <Container className="px-0 d-flex">
+            <Container className={cn("px-0 d-flex mt-5", styles.viewport)}>
                 <Row>
                     <Col md={6}>
                         <Alert className={cn(styles.alertBg, "px-3 mt-5 mx-5")}>
@@ -101,6 +101,9 @@ export default function Welcome() {
                     </Col>
                 </Row>
             </Container>
+            <div>
+                 
+            </div>
         </>
     )
 }

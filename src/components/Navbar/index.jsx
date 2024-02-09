@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 export default function MyNavbar() {
   return (
-    <Navbar expand="lg" className={cn(styles.navbg)}>
+    <Navbar expand="lg" className={cn(styles.navbg, 'mb-5')}>
       <Container className='px-0'>
         <Navbar.Brand href="#home">🍻 Birrabook 🍻</Navbar.Brand>
       </Container>

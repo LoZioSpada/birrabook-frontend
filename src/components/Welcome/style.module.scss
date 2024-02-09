@@ -3,3 +3,9 @@
     color: #fff !important;
     border: none !important;
 }
+
+@media only screen and (min-width: 768px){
+    .viewport{
+        height: 70vh;
+    }
+}

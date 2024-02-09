@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import cn from "classnames"
 import styles from "./style.module.scss"
 
-export default function SingleBeer({beer}) {
+export default function BeerCard({beer}) {
     return (
         <Col className="mb-5 d-flex" xs={12} sm={6} lg={3}>
             <Link to={`/${beer.asin}`}>

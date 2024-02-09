@@ -9,7 +9,7 @@ import Register from "./components/Register/index.jsx"
 import { AuthProvider } from "./context/AuthContext.js"
 import AllTheBeers from "./components/AllTheBeers.jsx"
 import NavbarSearch from "./components/NavbarSearch/index.jsx"
-import SingleBeer from "./components/SingleBeer/index.jsx"
+import BeerCard from "./components/BeerCard/index.jsx"
 
 function App() {
     const [searchQuery, setSearchQuery] = useState("")
@@ -41,6 +41,7 @@ function App() {
                             <>
                                 <Navbar />
                                 <Welcome />
+                                <Footer />
                             </>
                         }
                     />
@@ -50,6 +51,7 @@ function App() {
                             <>
                                 <Navbar />
                                 <Register />
+                                <Footer />
                             </>
                         }
                     />
@@ -62,6 +64,7 @@ function App() {
                                     setSearchQuery={setSearchQuery}
                                 />
                                 <AllTheBeers />
+                                <Footer />
                             </>
                         }
                     />
@@ -70,12 +73,12 @@ function App() {
                         element={
                             <>
                                 <Navbar />
-                                <SingleBeer />
+                                <BeerCard />
+                                <Footer />
                             </>
                         }
                     />
                 </Routes>
-                <Footer />
             </div>
         </AuthProvider>
     )

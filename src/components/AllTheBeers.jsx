@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import { Container, Row, Col } from "react-bootstrap"
-import SingleBeer from './SingleBeer'
+import BeerCard from "./BeerCard"
 
 export default function AllTheBeers({ searchQuery }) {
     const { userType, userData } = useContext(AuthContext)
@@ -26,7 +26,7 @@ export default function AllTheBeers({ searchQuery }) {
                         <h1>Cerca la tua birra preferita! 🍻</h1>
                         <Col xs={12} lg={4} style={{ overflow: "auto" }}>
                             {sortedBeers.map((beer, i) => (
-                                <SingleBeer beer={beer} key={i} />
+                                <BeerCard beer={beer} key={i} />
                             ))}
                         </Col>
                     </Row>
