@@ -64,7 +64,7 @@ function App() {
                         }
                     />
                     <Route
-                        path="/session/:id"
+                        path="/:id"
                         element={
                             <>
                                 <Navbar />
