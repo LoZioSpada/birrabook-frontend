@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate()
 
     const login = async (email, password) => {
-        const response = await fetch("http://localhost:3050/main", {
+        const response = await fetch("http://localhost:3050/api/users/session", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json()
         if(response.ok){
             localStorage.setItem("token", data.token)
-            navigate('/main')
+            navigate('/session')
         } else {
             alert("Credenziali errate, riprova!!")
         }
@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem("token")
         setUserData(null)
+        setUserType(null)
         navigate('/')
     }
 

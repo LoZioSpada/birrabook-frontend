@@ -3,9 +3,19 @@ import { Form, Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import styles from "./style.module.scss"
 import cn from "classnames"
-import { PersonCircle } from "react-bootstrap-icons"
 
-export default function NavbarSearch({ searchQuery, setSearchQuery }) {
+export default function NavbarSearch({ searchQuery, setSearchQuery, beers, setSortedBeers }) {
+
+    const handleSearch = (event) => {
+        const searchTerm = event.target.value;
+        setSearchQuery(searchTerm);
+        const filteredBeers = beers.filter(beer =>
+            beer.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSortedBeers(filteredBeers);
+    };
+
+
     return (
         <>
             <Navbar expand="lg" className={cn(styles.navbg)}>
@@ -18,16 +28,8 @@ export default function NavbarSearch({ searchQuery, setSearchQuery }) {
                             type="text"
                             placeholder="Cerca..."
                             value={searchQuery}
-                            onChange={(event) =>
-                                setSearchQuery(event.target.value)
-                            }
+                            onChange={handleSearch}
                         />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Control>
-                            <PersonCircle />
-                            {/* inserire logout*/}
-                        </Form.Control>
                     </Form.Group>
                 </Container>
             </Navbar>

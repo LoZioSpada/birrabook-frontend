@@ -62,6 +62,7 @@ export default function SingleBeer(){
                                 <h3>{beer.name}</h3>
                                 <p>Birrificio: {beer.brewery}</p>
                                 <p className="me-5">Luogo: {beer.place}</p>
+                                <p>Alc: {beer.alc}</p>
                             </div>
                             <p>{beer.description}</p>
                         </Col>
