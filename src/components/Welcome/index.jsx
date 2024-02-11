@@ -11,11 +11,16 @@ export default function Welcome() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [userId, setUserId] = useState('')
     const { login } = useContext(AuthContext)
 
     const handleLogin = async(event) =>{
         event.preventDefault()
-        await login(email, password)
+        await login (email, password)
+        userId = await localStorage.setItem('userId')
+        if(userId){
+            setUserId(userId)
+        }
     }
 
 
@@ -88,16 +93,16 @@ export default function Welcome() {
                             </Button>
                         </Form>
 
-                        <div className="px-5 mt-5 mx-5 mb-5">
+                        {/* <div className="px-5 mt-5 mx-5 mb-5">
                             <GoogleLoginButton
                                 className="rounded-5"
                                 onClick={() => {
                                     window.location.assign(
-                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/oauth/callback`
+                                        'http://localhost:3050/api/oauth/callback'
                                     )
                                 }}
                             />
-                        </div>
+                        </div> */}
                     </Col>
                 </Row>
             </Container>

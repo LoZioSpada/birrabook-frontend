@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useContext } from "react"
 import { useEffect } from "react"
 import { useState } from "react"
 import { Col, Container, Row, Image } from "react-bootstrap"
@@ -6,12 +6,14 @@ import { useParams } from "react-router-dom"
 import ManageComment from "./Comments/ManageComment"
 import CommentBeer from "./Comments/CommentBeer"
 import ReactStars from "react-stars"
+import AuthContext from "../context/AuthContext"
 
 export default function SingleBeer() {
     const { id } = useParams()
     const [beer, setBeer] = useState(null)
-    const [comments, setComments] = useState(null)
-    const token = localStorage.getItem("token")
+    const [comments, setComments] = useState([])
+    const { userData } = useContext(AuthContext)
+    const userId = localStorage.getItem("userId")
 
     const fetchComments = useCallback(async () => {
         const commentResponse = await fetch(
@@ -19,7 +21,7 @@ export default function SingleBeer() {
             {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${userId}`,
                 },
             }
         )
@@ -29,7 +31,7 @@ export default function SingleBeer() {
         } else {
             console.error("Errore nel caricamento dei commenti")
         }
-    }, [id, token])
+    }, [id, userId])
 
     useEffect(() => {
         async function fetchBeer() {
@@ -48,6 +50,10 @@ export default function SingleBeer() {
 
         fetchBeer()
     }, [id, fetchComments])
+
+    if(!beer || !comments){
+        return null
+    }
 
     return (
         beer &&
@@ -94,6 +100,7 @@ export default function SingleBeer() {
                                 fetchComments={fetchComments}
                                 id={id}
                                 comment={comments[0]}
+                                userId={userData.userId}
                             />
                             {comments.length === 0 ? (
                                 <p>Non ci sono ancora commenti</p>

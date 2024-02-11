@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Col, Modal, Form, Button } from "react-bootstrap"
 import ReactStars from "react-stars"
+import AuthContext from "../../context/AuthContext"
 
-function ManageComment({ id, fetchComments, singleComment, comment }) {
-    const token = localStorage.getItem("token")
+function ManageComment({ id, fetchComments, singleComment, comment, userId }) {
+    const { userData } = useContext(AuthContext)
+    // const  userId  = userData && userData.userId
+    console.log("UserID nel contesto di autenticazione:", userId);
     const [show, setShow] = useState(false)
     const [text, setText] = useState(singleComment ? singleComment.comment : "")
     const [rate, setRate] = useState(singleComment ? singleComment.rate : 0)
@@ -16,6 +19,11 @@ function ManageComment({ id, fetchComments, singleComment, comment }) {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
+        if(!userId){
+            alert("userId non definito o vuoto")
+            return
+        }
+
         const url = singleComment
             ? `http://localhost:3050/api/beers/${id}/comments/${comment._id}` // URL PER LA MODIFICA
             : `http://localhost:3050/api/beers/${id}/comments` // URL PER L'AGGIUNTA
@@ -25,7 +33,7 @@ function ManageComment({ id, fetchComments, singleComment, comment }) {
         const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${userData.token}`,
             },
             method: method,
             body: JSON.stringify({ text: text, rate: rate, author: userId }),
@@ -56,7 +64,7 @@ function ManageComment({ id, fetchComments, singleComment, comment }) {
 
                 <Form onSubmit={handleSubmit}>
                     <Modal.Body>
-                        <Form.Group className="mb-3 mt-2" controlId="comment">
+                        <Form.Group className="mb-3 mt-2" controlId="rate">
                             <ReactStars
                                 count={5}
                                 value={rate}
@@ -65,7 +73,7 @@ function ManageComment({ id, fetchComments, singleComment, comment }) {
                                 activeColor="#ffd700"
                             />
                         </Form.Group>
-                        <Form.Group className="mb-3 mt-2" controlId="comment">
+                        <Form.Group className="mb-3 mt-2" controlId="text">
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -74,7 +82,7 @@ function ManageComment({ id, fetchComments, singleComment, comment }) {
                                     setText(event.target.value)
                                 }
                                 required
-                                name="review"
+                                name="text"
                             />
                         </Form.Group>
                     </Modal.Body>

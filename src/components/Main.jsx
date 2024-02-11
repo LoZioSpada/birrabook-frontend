@@ -29,7 +29,7 @@ export default function Main() {
                 beers={beers}
                 setSortedBeers={setSortedBeers}
             />
-            <Container>
+            <Container className="mt-5">
                 <h1>Cerca la tua birra preferita! 🍻</h1>
                 <Row>
                     {sortedBeers.map((beer, i) => (
