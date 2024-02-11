@@ -17,10 +17,6 @@ export default function Welcome() {
     const handleLogin = async(event) =>{
         event.preventDefault()
         await login (email, password)
-        userId = await localStorage.setItem('userId')
-        if(userId){
-            setUserId(userId)
-        }
     }
 
 

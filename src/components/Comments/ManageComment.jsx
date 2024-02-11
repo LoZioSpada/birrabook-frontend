@@ -1,12 +1,11 @@
 import { useContext, useState } from "react"
 import { Col, Modal, Form, Button } from "react-bootstrap"
 import ReactStars from "react-stars"
-import AuthContext from "../../context/AuthContext"
+
 
 function ManageComment({ id, fetchComments, singleComment, comment, userId }) {
-    const { userData } = useContext(AuthContext)
-    // const  userId  = userData && userData.userId
-    console.log("UserID nel contesto di autenticazione:", userId);
+    const token = localStorage.getItem("token")
+    
     const [show, setShow] = useState(false)
     const [text, setText] = useState(singleComment ? singleComment.comment : "")
     const [rate, setRate] = useState(singleComment ? singleComment.rate : 0)
@@ -19,10 +18,6 @@ function ManageComment({ id, fetchComments, singleComment, comment, userId }) {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        if(!userId){
-            alert("userId non definito o vuoto")
-            return
-        }
 
         const url = singleComment
             ? `http://localhost:3050/api/beers/${id}/comments/${comment._id}` // URL PER LA MODIFICA
@@ -33,7 +28,7 @@ function ManageComment({ id, fetchComments, singleComment, comment, userId }) {
         const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${userData.token}`,
+                Authorization: `Bearer ${token}`,
             },
             method: method,
             body: JSON.stringify({ text: text, rate: rate, author: userId }),
