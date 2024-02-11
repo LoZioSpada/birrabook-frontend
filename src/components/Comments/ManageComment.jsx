@@ -1,11 +1,12 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Col, Modal, Form, Button } from "react-bootstrap"
 import ReactStars from "react-stars"
 
 
-function ManageComment({ id, fetchComments, singleComment, comment, userId }) {
+function ManageComment({ id, fetchComments, singleComment, comment }) {
     const token = localStorage.getItem("token")
-    
+    const userId = localStorage.getItem("userId")
+    const [user, setUser] = useState('')
     const [show, setShow] = useState(false)
     const [text, setText] = useState(singleComment ? singleComment.comment : "")
     const [rate, setRate] = useState(singleComment ? singleComment.rate : 0)
@@ -43,6 +44,13 @@ function ManageComment({ id, fetchComments, singleComment, comment, userId }) {
             alert("Si é verificato un errore!!")
         }
     }
+
+    useEffect(() => {
+        const storeUserId = localStorage.getItem("userId")
+        if(storeUserId) {
+            setUser(storeUserId)
+        }
+    }, [])
 
     return (
         <Col xs={12}>

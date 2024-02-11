@@ -59,7 +59,7 @@ export default function SingleBeer() {
         beer &&
         comments && (
             <>
-                <Container className="d-flex mt-5" fluid>
+                <Container className="d-flex mt-5" fluid style={{ height: "60vh" }}>
                     <Row className="ms-5">
                         <Col xs={12} style={{ maxHeight: "30rem" }}>
                             <Image src={beer.photo} />
@@ -83,7 +83,7 @@ export default function SingleBeer() {
                     </Row>
                 </Container>
                 <Container className="mt-5" fluid>
-                    <Row className="mt-5">
+                    <Row className="mt-5 ms-5">
                         <Col xs={4}>
                             <h5>Commenti: ({comments.length})</h5>
                             <div>
