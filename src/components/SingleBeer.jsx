@@ -1,44 +1,48 @@
-import { useCallback } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Col, Container, Row, Image } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import ManageComment from './Comments/ManageComment'
-import CommentBeer from './Comments/CommentBeer'
-import ReactStars from 'react-rating-stars-component'
+import { useCallback } from "react"
+import { useEffect } from "react"
+import { useState } from "react"
+import { Col, Container, Row, Image } from "react-bootstrap"
+import { useParams } from "react-router-dom"
+import ManageComment from "./Comments/ManageComment"
+import CommentBeer from "./Comments/CommentBeer"
+import ReactStars from "react-stars"
 
-export default function SingleBeer(){
+export default function SingleBeer() {
     const { id } = useParams()
-    const queryParams = new URLSearchParams()
     const [beer, setBeer] = useState(null)
     const [comments, setComments] = useState(null)
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
 
     const fetchComments = useCallback(async () => {
-        const commentResponse = await fetch(`REACT_APP_BACKEND_ENDPOINT/api/beers/${id}/comments`, {
-            method: 'GET',
-            headers:{
-                Authorization: `Bearer ${token}`
+        const commentResponse = await fetch(
+            `http://localhost:3050/api/beers/${id}/comments`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             }
-        })
-        if(commentResponse.ok){
+        )
+        if (commentResponse.ok) {
             const commentsData = await commentResponse.json()
             setComments(commentsData)
         } else {
-            console.error('Errore nel caricamento dei commenti')
+            console.error("Errore nel caricamento dei commenti")
         }
     }, [id, token])
 
     useEffect(() => {
-        async function fetchBeer(){
-            try{
-                const response = await fetch(`REACT_APP_BACKEND_ENDPOINT/api/beers/${id}`)
+        async function fetchBeer() {
+            try {
+                const response = await fetch(
+                    `http://localhost:3050/api/beers/${id}`
+                )
                 const beerData = await response.json()
                 setBeer(beerData)
-                
+
                 fetchComments()
-            } catch(error) {
-                console.error('Qualcosa é andato storto!')
+            } catch (error) {
+                console.error("Qualcosa é andato storto!")
             }
         }
 
@@ -46,32 +50,38 @@ export default function SingleBeer(){
     }, [id, fetchComments])
 
     return (
-        beer && comments && (
+        beer &&
+        comments && (
             <>
-                <Container fluid>
-                    <Row>
-                        <Col xs={12} style={{ maxHeight: '30rem' }}>
-                            <Image src={beer.photo} style={{ width: "100%", height: "100%", objectFit: "cover" }}/>
+                <Container className="d-flex mt-5" fluid>
+                    <Row className="ms-5">
+                        <Col xs={12} style={{ maxHeight: "30rem" }}>
+                            <Image src={beer.photo} />
+                        </Col>
+                    </Row>
+
+                    <Row className="ms-5">
+                        <Col xs={12}>
+                            <div>
+                                <h2 className="mb-5">{beer.name}</h2>
+                                <h4 className="mb-5">
+                                    Birrificio: {beer.brewery}
+                                </h4>
+                                <h5 className="mb-5">Luogo: {beer.place}</h5>
+                                <h6 className="mb-5">Alc: {beer.alc}</h6>
+                            </div>
+                            <div className="mb-5 pe-5">
+                                <strong>{beer.description}</strong>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
-                <Container className="mt-3" fluid>
-                    <Row>
-                        <Col xs={12} lg={8}>
-                            <div className="d-flex justify-content-between">
-                                <h3>{beer.name}</h3>
-                                <p>Birrificio: {beer.brewery}</p>
-                                <p className="me-5">Luogo: {beer.place}</p>
-                                <p>Alc: {beer.alc}</p>
-                            </div>
-                            <p>{beer.description}</p>
-                        </Col>
-                    </Row>
-                    <Row>
+                <Container className="mt-5" fluid>
+                    <Row className="mt-5">
                         <Col xs={4}>
                             <h5>Commenti: ({comments.length})</h5>
                             <div>
-                                <ReactStars 
+                                <ReactStars
                                     count={5}
                                     edit={false}
                                     size={24}
@@ -80,8 +90,19 @@ export default function SingleBeer(){
                             </div>
                         </Col>
                         <Col xs={4}>
-                            <ManageComment fetchComments={fetchComments} id={id} />
-                            {comments.length === 0 ? <p>Non ci sono ancora commenti</p> : <CommentBeer comments={comments} fetchComments={fetchComments} /> }
+                            <ManageComment
+                                fetchComments={fetchComments}
+                                id={id}
+                                comment={comments[0]}
+                            />
+                            {comments.length === 0 ? (
+                                <p>Non ci sono ancora commenti</p>
+                            ) : (
+                                <CommentBeer
+                                    comments={comments}
+                                    fetchComments={fetchComments}
+                                />
+                            )}
                         </Col>
                     </Row>
                 </Container>

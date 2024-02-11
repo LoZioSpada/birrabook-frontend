@@ -1,9 +1,10 @@
 import { useContext, useState } from "react"
 import AuthContext from "../../context/AuthContext"
 import { Button, Col } from "react-bootstrap"
-import ReactStars from "react-rating-stars-component"
+import ReactStars from "react-stars"
+import ManageComment from './ManageComment'
 
-export default function SingleComment({comment, fetchComments}){
+export default function SingleComment({comment, fetchComments, beerId }){
     const token = localStorage.getItem('token')
     const { userData } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
@@ -13,7 +14,7 @@ export default function SingleComment({comment, fetchComments}){
             return
         }
 
-        const response = await fetch(`REACT_APP_BACKEND_ENDPOINT/api/beers/${id}/comments/${comment._id}`, {
+        const response = await fetch(`http://localhost:3050/api/beers/${beerId}/comments/${comment._id}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,

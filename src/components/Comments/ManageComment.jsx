@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Col, Modal, Form, Button } from "react-bootstrap"
-import ReactStars from "react-rating-stars-component"
+import ReactStars from "react-stars"
 
-function ManageComment({ id, fetchComments, singleComment }) {
+function ManageComment({ id, fetchComments, singleComment, comment }) {
     const token = localStorage.getItem("token")
     const [show, setShow] = useState(false)
     const [text, setText] = useState(singleComment ? singleComment.comment : "")
@@ -17,8 +17,8 @@ function ManageComment({ id, fetchComments, singleComment }) {
         event.preventDefault()
 
         const url = singleComment
-            ? `REACT_APP_BACKEND_ENDPOINT/${id}/comments/${singleComment._id}` // URL PER LA MODIFICA
-            : `REACT_APP_BACKEND_ENDPOINT/${id}/comments` // URL PER L'AGGIUNTA
+            ? `http://localhost:3050/api/beers/${id}/comments/${comment._id}` // URL PER LA MODIFICA
+            : `http://localhost:3050/api/beers/${id}/comments` // URL PER L'AGGIUNTA
 
         console.log(url)
         const method = singleComment ? "PUT" : "POST"
@@ -28,7 +28,7 @@ function ManageComment({ id, fetchComments, singleComment }) {
                 Authorization: `Bearer ${token}`,
             },
             method: method,
-            body: JSON.stringify({ comment: text, rate: rate }),
+            body: JSON.stringify({ text: text, rate: rate, author: userId }),
         })
 
         if (response.ok) {

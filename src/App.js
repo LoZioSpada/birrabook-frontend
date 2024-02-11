@@ -8,7 +8,7 @@ import Welcome from "./components/Welcome/index.jsx"
 import Register from "./components/Register/index.jsx"
 import { AuthProvider } from "./context/AuthContext.js"
 import Main from "./components/Main.jsx"
-import BeerCard from "./components/BeerCard/index.jsx"
+import SingleBeer from "./components/SingleBeer.jsx"
 
 
 function App() {
@@ -64,11 +64,11 @@ function App() {
                         }
                     />
                     <Route
-                        path="/:id"
+                        path="/beer/:id"
                         element={
                             <>
                                 <Navbar />
-                                <BeerCard />
+                                <SingleBeer />
                                 <Footer />
                             </>
                         }

@@ -18,6 +18,7 @@
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
     "react-social-login-buttons": "^3.9.1",
+    "react-stars": "^2.2.5",
     "react-toastify": "^10.0.4",
     "sass": "^1.70.0",
     "toastify-react-native": "^4.0.0",
