@@ -140,7 +140,7 @@ function Register() {
                     className="rounded-5"
                     disabled={!passwordValid}
                 >
-                    <Link to={'/'}>Registrati</Link>
+                    Registrati
                 </Button>
             </Form>   
         </Container>
